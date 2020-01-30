@@ -1,0 +1,24 @@
+
+
+HEAPPROFILE=./<foo> CPUPROFILE=./<foo>.prof ../build/test/print_graph -f true <dotfile>
+
+for i in 400 star 4000 8000 16000 32000 80000 160000 320000 400000; do CPUPROFILE=$i.prof ./test/print_graph -f true ../examples/$i.dot > /dev/null; done
+
+for i in 400 star 4000 8000 16000 32000 80000 160000 320000 400000; do HEAPPROFILE=$i ./test/print_graph -f true ../examples/$i.dot > /dev/null&; done
+
+
+for i in 400 star 4000 8000 16000 32000 80000 160000 320000 400000; do pprof --nodecount=400 --maxdegree=100 --nodefraction=0 --edgefraction=0 --focus 'main' --ignore 'Catch' --ignore 'create_from_dot' --svg ../build/test/print_graph ../docs/$i.prof > ../docs/${i}_cpu.svg&; pprof --nodecount=400 --maxdegree=100 --nodefraction=0 --edgefraction=0 --focus 'main' --ignore 'Catch' --ignore 'create_from_dot' --pdf ../build/test/print_graph ../docs/$i.prof > ../docs/${i}_cpu.pdf&; done
+
+
+for i in 400 star 4000 8000 16000 32000 80000 160000 320000 400000; do pprof --nodecount=400 --maxdegree=100 --nodefraction=0 --edgefraction=0 --focus 'main' --ignore 'Catch' --ignore 'create_from_dot' --alloc_space --show_bytes --svg ../build/test/print_graph ../docs/$i.*.heap > ../docs/${i}_heap.svg&; pprof --nodecount=400 --maxdegree=100 --nodefraction=0 --edgefraction=0 --focus 'main' --ignore 'Catch' --ignore 'create_from_dot' --alloc_space --show_bytes --pdf ../build/test/print_graph ../docs/$i.*.heap > ../docs/${i}_heap.pdf&; done
+
+
+# other focus
+--focus annotate_edges
+--focus cutvertices
+
+
+
+# convert svgs to pdf
+# or -density 200
+for i in ./*.svg; do convert -density 300 "$i" `echo "$i" | sed -e 's/\.svg/.eps/'`; done
