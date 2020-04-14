@@ -1,6 +1,6 @@
 [submodule "src/thirdparty/Sux"]
 	path = src/thirdparty/Sux
-	url = https://github.com/foudrer/Sux.git
+	url = https://github.com/foudrer/Sux
 [submodule "test/thirdparty/Catch2"]
 	path = test/thirdparty/Catch2
-	url = https://github.com/catchorg/Catch2.git
+	url = https://github.com/catchorg/Catch2/
