@@ -26,3 +26,9 @@ Switch to build directory
 Documentation:
 --------------
 see build/docs/index.html
+
+
+Note:
+=====
+
+This repo only contains my own code. It lacks the graph server
